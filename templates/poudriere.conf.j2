@@ -1,21 +1,4 @@
 # Managed by ansible
-
-ATOMIC_PACKAGE_REPOSITORY="{{ poudriere_ATOMIC_PACKAGE_REPOSITORY }}"
-BASEFS="{{ poudriere_BASEFS }}"
-BUILD_AS_NON_ROOT="{{ poudriere_BUILD_AS_NON_ROOT }}"
-CHECK_CHANGED_DEPS="{{ poudriere_CHECK_CHANGED_DEPS }}"
-CHECK_CHANGED_OPTIONS="{{ poudriere_CHECK_CHANGED_OPTIONS }}"
-DISTFILES_CACHE="{{ poudriere_DISTFILES_CACHE }}"
-export FTP_PROXY="{{ poudriere_FTP_PROXY }}"
-export HTTP_PROXY="{{ poudriere_HTTP_PROXY }}"
-export NO_PROXY="{{ poudriere_NO_PROXY }}"
-FREEBSD_HOST="{{ poudriere_FREEBSD_HOST }}"
-GIT_URL="{{ poudriere_GIT_URL }}"
-NO_ZFS="{{ poudriere_NO_ZFS }}"
-POUDRIERE_DATA="{{ poudriere_POUDRIERE_DATA }}"
-RESOLV_CONF="{{ poudriere_RESOLV_CONF }}"
-SVN_HOST="{{ poudriere_SVN_HOST }}"
-TMPFS_LIMIT="{{ poudriere_TMPFS_LIMIT }}"
-USE_PORTLINT="{{ poudriere_USE_PORTLINT }}"
-USE_TMPFS="{{ poudriere_USE_TMPFS }}"
-WRKDIR_ARCHIVE_FORMAT="{{ poudriere_WRKDIR_ARCHIVE_FORMAT }}"
+{% for k, v in poudriere_config | dictsort -%}
+{{ k }}="{{ v }}"
+{% endfor -%}

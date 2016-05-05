@@ -2,6 +2,7 @@
   roles:
     - ansible-role-poudriere
   vars:
-    poudriere_NO_ZFS: "yes"
-    poudriere_GIT_URL: "https://github.com/reallyenglish/freebsd-ports.git"
-    poudriere_FREEBSD_HOST: "ftp://ftp.jp.freebsd.org"
+    poudriere_config:
+      NO_ZFS: "yes"
+      GIT_URL: "https://github.com/reallyenglish/freebsd-ports.git"
+      FREEBSD_HOST: "ftp://ftp.jp.freebsd.org"
