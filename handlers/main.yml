@@ -1,0 +1,6 @@
+---
+
+- name: Restart poudriere_config
+  service:
+    name: poudriere
+    state: restarted
