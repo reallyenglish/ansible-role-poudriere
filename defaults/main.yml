@@ -3,23 +3,4 @@
 # https://github.com/freebsd/poudriere/issues/333
 # poudriere_service: poudriered
 poudriere_conf: "/usr/local/etc/poudriere.conf"
-
-poudriere_ATOMIC_PACKAGE_REPOSITORY: "yes"
-poudriere_BASEFS: /usr/local/poudriere
-poudriere_BUILD_AS_NON_ROOT: "yes"
-poudriere_CHECK_CHANGED_DEPS: yes
-poudriere_CHECK_CHANGED_OPTIONS: verbose
-poudriere_DISTFILES_CACHE: /usr/ports/distfiles
-poudriere_FREEBSD_HOST: "ftp://ftp.FreeBSD.org"
-poudriere_FTP_PROXY: ""
-poudriere_GIT_URL: ""
-poudriere_HTTP_PROXY: ""
-poudriere_NO_PROXY: localhost,127.0.0.1
-poudriere_NO_ZFS: "yes"
-poudriere_POUDRIERE_DATA: "${BASEFS}/data"
-poudriere_RESOLV_CONF: /etc/resolv.conf
-poudriere_SVN_HOST: svn0.us-west.FreeBSD.org
-poudriere_TMPFS_LIMIT: 8 # in GB
-poudriere_USE_PORTLINT: "no"
-poudriere_USE_TMPFS: "no"
-poudriere_WRKDIR_ARCHIVE_FORMAT: tbz
+poudriere_config: {}
