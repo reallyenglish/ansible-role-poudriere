@@ -24,7 +24,7 @@ None
 Example Playbook
 ----------------
 
-    - hosts: all
+    - hosts: localhost
       roles:
         - ansible-role-poudriere
       vars:
@@ -32,6 +32,30 @@ Example Playbook
           NO_ZFS: "yes"
           GIT_URL: "https://github.com/reallyenglish/freebsd-ports.git"
           FREEBSD_HOST: "ftp://ftp.jp.freebsd.org"
+          RESOLV_CONF: /etc/resolv.conf
+          BASEFS: /usr/local/poudriere
+          DISTFILES_CACHE: /usr/ports/distfiles
+          SVN_HOST: svn.FreeBSD.org
+          CHECK_CHANGED_OPTIONS: verbose
+          NOLINUX: "yes"
+        poudriere_enable_sudo:
+        poudriere_ports:
+          10_3_re:
+            method: git
+            branch: 10_3_re
+          freebsd:
+            method: svn
+        poudriere_jails:
+          "10_3":
+            method: http
+            version: 10.3-RELEASE
+        poudriere_hooks:
+          jail: |
+            #!/bin/sh
+            echo "args=$*"
+          builder: |
+            #!/bin/sh
+            echo "args=$*"
 
 License
 -------
