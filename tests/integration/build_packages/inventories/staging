@@ -1,0 +1,5 @@
+[poudriere]
+192.168.21.100
+
+[all:children]
+poudriere
