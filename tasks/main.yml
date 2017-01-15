@@ -16,19 +16,22 @@
     name: git
     state: present
 
-- name: create hooks
+- name: Create hooks
   template:
     src: hook.sh.j2
     dest: "/usr/local/etc/poudriere.d/hooks/{{ item.key }}.sh"
     mode: 0755
+    validate: sh -n %s
   with_dict: "{{ poudriere_hooks }}"
 
-- command: "poudriere ports -c -p {{ item.key }} -m {{ item.value.method }} {% if 'branch' in item.value %} -B {{ item.value.branch }} {% endif %} {% if 'extra_flags' in item.value %}{{ item.value.extra_flags }}{% endif %}"
+- name: Create ports tree
+  command: "poudriere ports -c -p {{ item.key }} -m {{ item.value.method }} {% if 'branch' in item.value %} -B {{ item.value.branch }} {% endif %} {% if 'extra_flags' in item.value %}{{ item.value.extra_flags }}{% endif %}"
   args:
     creates: "{{ poudriere_config.BASEFS }}/ports/{{ item.key }}"
   with_dict: "{{ poudriere_ports }}"
 
-- command: "poudriere jail -c -j {{ item.key }} -m {{ item.value.method }} -v {{ item.value.version }} {% if 'extra_flags' in item.value %}{{ item.value.extra_flags }}{% endif %}"
+- name: Create jails 
+  command: "poudriere jail -c -j {{ item.key }} -m {{ item.value.method }} -v {{ item.value.version }} {% if 'extra_flags' in item.value %}{{ item.value.extra_flags }}{% endif %}"
   args:
     creates: "{{ poudriere_config.BASEFS }}/jails/{{ item.key }}"
   with_dict: "{{ poudriere_jails }}"
