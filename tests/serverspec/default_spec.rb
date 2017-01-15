@@ -30,12 +30,6 @@ describe command('poudriere ports -l') do
   its(:stderr) { should match /^$/ }
 end
 
-describe command('poudriere ports -l') do
-  quoted = Regexp.escape("#{basefs}/ports/freebsd")
-  its(:stdout) { should match /^freebsd\s+svn\s+(?:\d+-\d+-\d+\s+\d+:\d+:\d+\s+)?#{quoted}/ }
-  its(:stderr) { should match /^$/ }
-end
-
 describe command("cd #{basefs}/ports/10_3_re && git config --get remote.origin.url") do
   its(:stdout) { should match Regexp.escape('https://github.com/reallyenglish/freebsd-ports.git') }
   its(:stderr) { should match /^$/ }
@@ -43,12 +37,6 @@ end
 
 describe command("cd #{basefs}/ports/10_3_re && git branch") do
   its(:stdout) { should match /10_3_re/ }
-  its(:stderr) { should match /^$/ }
-end
-
-describe command("cd #{basefs}/ports/freebsd && svnlite info") do
-  its(:stdout) { should match Regexp.escape('Repository Root: svn://svn.freebsd.org/ports') }
-  its(:stdout) { should match Regexp.escape('URL: svn://svn.freebsd.org/ports/head') }
   its(:stderr) { should match /^$/ }
 end
 

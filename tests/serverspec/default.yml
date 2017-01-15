@@ -17,8 +17,6 @@
       10_3_re:
         method: git
         branch: 10_3_re
-      freebsd:
-        method: svn
     poudriere_jails:
       "10_3":
         method: http
