@@ -6,8 +6,7 @@
 - set_fact:
     poudriere_config_merged: "{{ poudriere_config_default | combine(poudriere_config, recursive = True) }}"
 
-- include: install-FreeBSD.yml
-  when: ansible_os_family == 'FreeBSD'
+- include: install-{{ ansible_os_family }}.yml
 
 - name: Create poudriere.conf
   template:
