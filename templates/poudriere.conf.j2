@@ -1,4 +1,4 @@
 # Managed by ansible
-{% for k, v in poudriere_config | dictsort -%}
+{% for k, v in poudriere_config_merged | dictsort -%}
 {{ k }}="{{ v }}"
 {% endfor -%}

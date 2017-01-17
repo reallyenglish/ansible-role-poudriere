@@ -10,8 +10,21 @@ None
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| poudriere\_conf | path to poudriere.conf | /usr/local/etc/poudriere.conf |
-| poudriere\_config | a dict of config (see example below) | {} |
+| `poudriere_conf` | path to `poudriere.conf` | `/usr/local/etc/poudriere.conf` |
+| `poudriere_config_default` | defaults for `poudriere_config` | see below |
+| `poudriere_config` | dict of config that overrides `poudriere_config_default` | `{}` |
+
+## `poudriere_config_default`
+
+```yaml
+poudriere_config_default:
+  FREEBSD_HOST: ftp://ftp.freebsd.org
+  SVN_HOST: svn.FreeBSD.org
+  BASEFS: /usr/local/poudriere
+  RESOLV_CONF: /etc/resolv.conf
+  USE_TMPFS: "yes"
+  DISTFILES_CACHE: /usr/ports/distfiles
+```
 
 # Dependencies
 
@@ -25,13 +38,9 @@ None
     - ansible-role-poudriere
   vars:
     poudriere_config:
+      FREEBSD_HOST: ftp://ftp.jp.freebsd.org
       NO_ZFS: "yes"
       GIT_URL: "https://github.com/reallyenglish/freebsd-ports.git"
-      FREEBSD_HOST: "ftp://ftp.jp.freebsd.org"
-      RESOLV_CONF: /etc/resolv.conf
-      BASEFS: /usr/local/poudriere
-      DISTFILES_CACHE: /usr/ports/distfiles
-      SVN_HOST: svn.FreeBSD.org
       CHECK_CHANGED_OPTIONS: verbose
       NOLINUX: "yes"
     poudriere_enable_sudo:

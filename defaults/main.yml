@@ -3,4 +3,11 @@
 # https://github.com/freebsd/poudriere/issues/333
 # poudriere_service: poudriered
 poudriere_conf: "/usr/local/etc/poudriere.conf"
+poudriere_config_default:
+  FREEBSD_HOST: ftp://ftp.freebsd.org
+  SVN_HOST: svn.FreeBSD.org
+  BASEFS: /usr/local/poudriere
+  RESOLV_CONF: /etc/resolv.conf
+  USE_TMPFS: "yes"
+  DISTFILES_CACHE: /usr/ports/distfiles
 poudriere_config: {}
