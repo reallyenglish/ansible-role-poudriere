@@ -3,6 +3,9 @@
 
 - include_vars: "{{ ansible_os_family }}.yml"
 
+- set_fact:
+    poudriere_config_merged: "{{ poudriere_config_default | combine(poudriere_config, recursive = True) }}"
+
 - include: install-FreeBSD.yml
   when: ansible_os_family == 'FreeBSD'
 
@@ -27,11 +30,11 @@
 - name: Create ports tree
   command: "poudriere ports -c -p {{ item.key }} -m {{ item.value.method }} {% if 'branch' in item.value %} -B {{ item.value.branch }} {% endif %} {% if 'extra_flags' in item.value %}{{ item.value.extra_flags }}{% endif %}"
   args:
-    creates: "{{ poudriere_config.BASEFS }}/ports/{{ item.key }}"
+    creates: "{{ poudriere_config_merged.BASEFS }}/ports/{{ item.key }}"
   with_dict: "{{ poudriere_ports }}"
 
 - name: Create jails 
   command: "poudriere jail -c -j {{ item.key }} -m {{ item.value.method }} -v {{ item.value.version }} {% if 'extra_flags' in item.value %}{{ item.value.extra_flags }}{% endif %}"
   args:
-    creates: "{{ poudriere_config.BASEFS }}/jails/{{ item.key }}"
+    creates: "{{ poudriere_config_merged.BASEFS }}/jails/{{ item.key }}"
   with_dict: "{{ poudriere_jails }}"

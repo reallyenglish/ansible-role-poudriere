@@ -3,13 +3,9 @@
     - ansible-role-poudriere
   vars:
     poudriere_config:
+      FREEBSD_HOST: ftp://ftp.jp.freebsd.org
       NO_ZFS: "yes"
       GIT_URL: "https://github.com/reallyenglish/freebsd-ports.git"
-      FREEBSD_HOST: "ftp://ftp.jp.freebsd.org"
-      RESOLV_CONF: /etc/resolv.conf
-      BASEFS: /usr/local/poudriere
-      DISTFILES_CACHE: /usr/ports/distfiles
-      SVN_HOST: svn.FreeBSD.org
       CHECK_CHANGED_OPTIONS: verbose
       NOLINUX: "yes"
     poudriere_enable_sudo:
