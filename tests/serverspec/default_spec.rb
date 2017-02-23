@@ -13,7 +13,7 @@ describe file(config) do
   it { should be_file }
 
   its(:content) { should match /NO_ZFS="yes"/ }
-  its(:content) { should match Regexp.escape('GIT_URL="https://github.com/reallyenglish/freebsd-ports.git"') }
+  its(:content) { should match Regexp.escape('GIT_URL="https://github.com/reallyenglish/freebsd-ports-mini.git"') }
   its(:content) { should match Regexp.escape('FREEBSD_HOST="ftp://ftp.jp.freebsd.org"') }
 end
 
@@ -25,18 +25,18 @@ jail_hook_files.each do |f|
 end
 
 describe command('poudriere ports -l') do
-  quoted = Regexp.escape("#{basefs}/ports/10_3_re")
-  its(:stdout) { should match /^10_3_re\s+git\s+(?:\d+-\d+-\d+\s+\d+:\d+:\d+\s+)?#{quoted}/ }
+  quoted = Regexp.escape("#{basefs}/ports/mini")
+  its(:stdout) { should match /^mini\s+git\s+(?:\d+-\d+-\d+\s+\d+:\d+:\d+\s+)?#{quoted}/ }
   its(:stderr) { should match /^$/ }
 end
 
-describe command("cd #{basefs}/ports/10_3_re && git config --get remote.origin.url") do
-  its(:stdout) { should match Regexp.escape('https://github.com/reallyenglish/freebsd-ports.git') }
+describe command("cd #{basefs}/ports/mini && git config --get remote.origin.url") do
+  its(:stdout) { should match Regexp.escape('https://github.com/reallyenglish/freebsd-ports-mini.git') }
   its(:stderr) { should match /^$/ }
 end
 
-describe command("cd #{basefs}/ports/10_3_re && git branch") do
-  its(:stdout) { should match /10_3_re/ }
+describe command("cd #{basefs}/ports/mini && git branch") do
+  its(:stdout) { should match /20170222/ }
   its(:stderr) { should match /^$/ }
 end
 
