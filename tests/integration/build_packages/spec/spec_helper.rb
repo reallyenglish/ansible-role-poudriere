@@ -6,11 +6,11 @@ ENV['LANG'] = 'C'
 Infrataster::Server.define(
   :server1,
   '192.168.21.100',
-  vagrant: true,
+  vagrant: true
 )
 
 def json_body_as_hash
-    json_str_to_hash(response.body)
+  json_str_to_hash(response.body)
 end
 
 def json_str_to_hash(str)
