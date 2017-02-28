@@ -7,11 +7,5 @@
     https_proxy: "{{ https_proxy | default() }}"
     no_proxy: "{{ no_proxy | default() }}"
 
-  pre_tasks:
-    - name: Create DISTFILES_CACHE
-      file:
-        path: /usr/ports/distfiles
-        state: directory
-        mode: 0755
   roles:
     - ansible-role-poudriere

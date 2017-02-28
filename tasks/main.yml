@@ -26,6 +26,26 @@
     validate: sh -n %s
   with_dict: "{{ poudriere_hooks }}"
 
+- name: "Assert BASEFS is defined and not empty"
+  assert:
+    msg: "poudriere_config.BASEFS is undefined or empty: specify poudriere_config.BASEFS"
+    that:
+      - poudriere_config_merged.BASEFS is defined
+      - poudriere_config_merged.BASEFS | length > 0
+
+- name: Create BASEFS
+  file:
+    path: "{{ poudriere_config_merged.BASEFS }}"
+    state: directory
+
+- name: Create optional DISTFILES_CACHE
+  file:
+    path: "{{ poudriere_config_merged.DISTFILES_CACHE }}"
+    state: directory
+  when:
+    - poudriere_config_merged.DISTFILES_CACHE is defined
+    - poudriere_config_merged.DISTFILES_CACHE | length > 0
+
 - name: Create ports tree
   command: "poudriere ports -c -p {{ item.key }}{% if 'method' in item.value %} -m {{ item.value.method }}{% endif %} {% if 'branch' in item.value %} -B {{ item.value.branch }} {% endif %} {% if 'extra_flags' in item.value %}{{ item.value.extra_flags }}{% endif %}"
   args:
