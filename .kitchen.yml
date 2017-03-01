@@ -40,11 +40,3 @@ suites:
     verifier:
       name: shell
       command: rspec -c -f d -I tests/serverspec tests/serverspec/default_spec.rb
-
-  - name: empty_distfiles_cache
-    provisioner:
-      name: ansible_playbook
-      playbook: tests/serverspec/empty_distfiles_cache.yml
-    verifier:
-      name: shell
-      command: rspec -c -f d -I tests/serverspec tests/serverspec/empty_distfiles_cache_spec.rb
