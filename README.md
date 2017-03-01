@@ -16,7 +16,8 @@ None
 
 ## `poudriere_config_default`
 
-`BASEFS` is mandatory. See `poudriere.conf.sample` for details.
+`BASEFS` and `DISTFILES_CACHE` are mandatory. See `poudriere.conf.sample` for
+details.
 
 ```yaml
 poudriere_config_default:
