@@ -6,8 +6,8 @@
 - name: Assert poudriere_config_default has sane defaults
   assert:
     that:
-      - 'BASEFS' in poudriere_config_default
-      - 'DISTFILES_CACHE' in poudriere_config_default
+      - "'BASEFS' in poudriere_config_default"
+      - "'DISTFILES_CACHE' in poudriere_config_default"
       - poudriere_config_default.BASEFS is defined
       - poudriere_config_default.BASEFS | length > 0
       - poudriere_config_default.DISTFILES_CACHE is defined
@@ -40,7 +40,7 @@
 - name: Assert DISTFILES_CACHE is defined and not empty
   assert:
     that:
-      - 'DISTFILES_CACHE' in poudriere_config_merged
+      - "'DISTFILES_CACHE' in poudriere_config_merged"
       - poudriere_config_merged.DISTFILES_CACHE is defined
       - poudriere_config_merged.DISTFILES_CACHE | length > 0
     msg: "poudriere_config.DISTFILES_CACHE is undefined or empty: specify poudriere_config.DISTFILES_CACHE"
@@ -53,7 +53,7 @@
 - name: "Assert BASEFS is defined and not empty"
   assert:
     that:
-      - 'BASEFS' in poudriere_config_merged
+      - "'BASEFS' in poudriere_config_merged"
       - poudriere_config_merged.BASEFS is defined
       - poudriere_config_merged.BASEFS | length > 0
     msg: "poudriere_config.BASEFS is undefined or empty: specify poudriere_config.BASEFS"
