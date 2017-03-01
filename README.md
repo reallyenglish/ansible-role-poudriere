@@ -16,6 +16,9 @@ None
 
 ## `poudriere_config_default`
 
+`BASEFS` and `DISTFILES_CACHE` are mandatory. See `poudriere.conf.sample` for
+details.
+
 ```yaml
 poudriere_config_default:
   FREEBSD_HOST: ftp://ftp.freebsd.org

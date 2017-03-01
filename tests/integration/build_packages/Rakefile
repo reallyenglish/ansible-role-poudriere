@@ -7,14 +7,14 @@ test_dir = Pathname.new(__FILE__).dirname
 role_dir = Pathname.new(test_dir).parent.parent.parent
 role_name = Pathname.new(role_dir).basename
 
-task default: %w[ test ]
+task default: %w(test)
 
 desc 'run rspec'
-task :test => [ :clean, :prepare, :do_test, :ensure_clean ] do
+task test: [:clean, :prepare, :do_test, :ensure_clean] do
 end
 
 desc 'clean'
-task :clean => [ :clean_vagrant, :clean_roles ] do
+task clean: [:clean_vagrant, :clean_roles] do
 end
 
 desc 'destroy vagrant nodes'
@@ -24,7 +24,7 @@ task :clean_vagrant do
 end
 
 desc 'prepare the test environment'
-task :prepare => [ :prepare_role, :prepare_roles, :vagrant_up ] do
+task prepare: [:prepare_role, :prepare_roles, :vagrant_up] do
 end
 
 desc 'import required roles'
@@ -39,7 +39,7 @@ end
 
 desc 'prepare role'
 task :prepare_role do
-  ignore_files = %w[ vendor .kitchen .git tests spec ].map { |f| "#{role_name}/#{f}" }
+  ignore_files = %w(vendor .kitchen .git tests spec).map { |f| "#{role_name}/#{f}" }
   tmpfile = Tempfile.new('.tarignore')
   tmpfile.write ignore_files.join("\n")
   tmpfile.close
@@ -53,9 +53,7 @@ end
 
 desc 'do clean task even if it has been executed'
 task :ensure_clean do
-  Rake::Task["clean"].all_prerequisite_tasks.each do |task|
-    task.reenable
-  end
+  Rake::Task["clean"].all_prerequisite_tasks.each(&:reenable)
   Rake::Task["clean"].reenable
   Rake::Task["clean"].invoke
 end

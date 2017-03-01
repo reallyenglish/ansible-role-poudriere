@@ -3,6 +3,17 @@
 
 - include_vars: "{{ ansible_os_family }}.yml"
 
+- name: Assert poudriere_config_default has sane defaults
+  assert:
+    that:
+      - "'BASEFS' in poudriere_config_default"
+      - "'DISTFILES_CACHE' in poudriere_config_default"
+      - poudriere_config_default.BASEFS is defined
+      - poudriere_config_default.BASEFS | length > 0
+      - poudriere_config_default.DISTFILES_CACHE is defined
+      - poudriere_config_default.DISTFILES_CACHE | length > 0
+    msg: "poudriere_config_default must have valid BASEFS and DISTFILES_CACHE"
+
 - set_fact:
     poudriere_config_merged: "{{ poudriere_config_default | combine(poudriere_config, recursive = True) }}"
 
@@ -25,6 +36,32 @@
     mode: 0755
     validate: sh -n %s
   with_dict: "{{ poudriere_hooks }}"
+
+- name: Assert DISTFILES_CACHE is defined and not empty
+  assert:
+    that:
+      - "'DISTFILES_CACHE' in poudriere_config_merged"
+      - poudriere_config_merged.DISTFILES_CACHE is defined
+      - poudriere_config_merged.DISTFILES_CACHE | length > 0
+    msg: "poudriere_config.DISTFILES_CACHE is undefined or empty: specify poudriere_config.DISTFILES_CACHE"
+
+- name: Create DISTFILES_CACHE directory
+  file:
+    path: "{{ poudriere_config_merged.DISTFILES_CACHE }}"
+    state: directory
+
+- name: "Assert BASEFS is defined and not empty"
+  assert:
+    that:
+      - "'BASEFS' in poudriere_config_merged"
+      - poudriere_config_merged.BASEFS is defined
+      - poudriere_config_merged.BASEFS | length > 0
+    msg: "poudriere_config.BASEFS is undefined or empty: specify poudriere_config.BASEFS"
+
+- name: Create BASEFS directory
+  file:
+    path: "{{ poudriere_config_merged.BASEFS }}"
+    state: directory
 
 - name: Create ports tree
   command: "poudriere ports -c -p {{ item.key }}{% if 'method' in item.value %} -m {{ item.value.method }}{% endif %} {% if 'branch' in item.value %} -B {{ item.value.branch }} {% endif %} {% if 'extra_flags' in item.value %}{{ item.value.extra_flags }}{% endif %}"
