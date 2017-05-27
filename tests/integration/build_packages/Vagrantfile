@@ -1,4 +1,4 @@
-require 'socket'
+require "socket"
 # @return [String] public IP address of workstation used for egress traffic
 def local_ip
   @local_ip ||= begin
@@ -8,7 +8,7 @@ def local_ip
 
     # open UDP socket so that it never send anything over the network
     UDPSocket.open do |s|
-      s.connect '8.8.8.8', 1 # any global IP address works here
+      s.connect "8.8.8.8", 1 # any global IP address works here
       s.addr.last
     end
   ensure
@@ -37,7 +37,7 @@ rescue Errno::EPERM, Errno::ETIMEDOUT
 ensure
   socket && socket.close
 end
-http_proxy = proxy_running? ? http_proxy_url : ''
+http_proxy = proxy_running? ? http_proxy_url : ""
 
 # Vagrantfile
 Vagrant.configure("2") do |config|
@@ -56,13 +56,13 @@ Vagrant.configure("2") do |config|
       ansible.limit = ip
       ansible.playbook = "site.yml"
       ansible.extra_vars = {
-        ansible_python_interpreter: '/usr/local/bin/python',
+        ansible_python_interpreter: "/usr/local/bin/python",
         http_proxy: http_proxy,
         https_proxy: http_proxy,
-        no_proxy: 'localhost,127.0.0.1,.example.com'
+        no_proxy: "localhost,127.0.0.1,.example.com"
       }
-      ansible.inventory_path = 'inventories/staging'
-      ansible.verbose = 'v'
+      ansible.inventory_path = "inventories/staging"
+      ansible.verbose = "v"
     end
   end
 end
