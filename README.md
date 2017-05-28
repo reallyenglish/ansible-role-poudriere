@@ -38,6 +38,7 @@ poudriere_config_default:
 | `method` | method to use to create the ports tree | yes |
 | `branch` | branch to checkout | yes |
 | `extra_flags` | additional flags to `poudriere(8)` when creating ports tree | no |
+| `state` | state of the ports, either `present` or `absent` | yes |
 
 ## `poudriere_jails`
 
@@ -46,6 +47,7 @@ poudriere_config_default:
 | `method` | method to use to create the jail | yes |
 | `version` | version of FreeBSD to use in the jail | yes |
 | `extra_flags` | additional flags to `poudriere(8)` when creating the jail | no |
+| `state` | state of the jail, either `present` or `absent` | yes |
 
 ## `poudriere_hooks`
 
