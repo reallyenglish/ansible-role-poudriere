@@ -35,8 +35,8 @@ poudriere_config_default:
 
 | Key | Description | Mandatory |
 |-----|-------------|-----------|
-| `method` | method to use to create the ports tree | yes |
-| `branch` | branch to checkout | yes |
+| `method` | method to use to create the ports tree | no |
+| `branch` | branch to checkout | no |
 | `extra_flags` | additional flags to `poudriere(8)` when creating ports tree | no |
 | `state` | state of the ports, either `present` or `absent` | yes |
 
