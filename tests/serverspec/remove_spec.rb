@@ -43,7 +43,7 @@ describe command("poudriere ports -l") do
 end
 
 describe command("poudriere jails -l") do
-  its(:exit_status) { should eq 70 }
+  its(:exit_status) { should eq 0 }
   its(:stdout) { should_not match(/10_3\s/) }
   its(:stderr) { should eq "" }
 end
