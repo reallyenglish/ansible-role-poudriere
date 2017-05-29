@@ -118,7 +118,7 @@
     creates: "{{ poudriere_config_merged.BASEFS }}/jails/{{ item.key }}"
   when:
     - 'item.value.state == "present"'
-    - not item.key in register_ports_list.stdout_lines
+    - not item.key in register_jails_list.stdout_lines
   with_dict: "{{ poudriere_jails }}"
 
 - name: Remove ports tree
@@ -136,5 +136,5 @@
     removes: "{{ poudriere_config_merged.BASEFS }}/jails/{{ item.key }}"
   when:
     - 'item.value.state == "absent"'
-    - item.key in register_ports_list.stdout_lines
+    - item.key in register_jails_list.stdout_lines
   with_dict: "{{ poudriere_jails }}"

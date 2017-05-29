@@ -8,6 +8,7 @@
         - poudriere
         - git
     - command: poudriere ports -c -p mini -m git -B 20170222
+    - command: poudriere jails -c -j 10_3 -m http -v 10.3-RELEASE
   roles:
     - ansible-role-poudriere
   vars:
@@ -23,4 +24,6 @@
         method: git
         branch: 20170222
         state: absent
-    poudriere_jails: {}
+    poudriere_jails:
+      10_3:
+        state: absent
