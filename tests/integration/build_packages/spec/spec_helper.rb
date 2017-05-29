@@ -1,11 +1,11 @@
-require 'infrataster/rspec'
+require "infrataster/rspec"
 
-ENV['VAGRANT_CWD'] = File.dirname(__FILE__)
-ENV['LANG'] = 'C'
+ENV["VAGRANT_CWD"] = File.dirname(__FILE__)
+ENV["LANG"] = "C"
 
 Infrataster::Server.define(
   :server1,
-  '192.168.21.100',
+  "192.168.21.100",
   vagrant: true
 )
 
@@ -21,5 +21,5 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
 
-  config.order = 'default'
+  config.order = "default"
 end

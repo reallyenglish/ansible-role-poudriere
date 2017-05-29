@@ -11,3 +11,6 @@ poudriere_config_default:
   USE_TMPFS: "yes"
   DISTFILES_CACHE: /usr/ports/distfiles
 poudriere_config: {}
+poudriere_ports: {}
+poudriere_jails: {}
+poudriere_hooks: {}

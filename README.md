@@ -13,6 +13,9 @@ None
 | `poudriere_conf` | path to `poudriere.conf` | `/usr/local/etc/poudriere.conf` |
 | `poudriere_config_default` | defaults for `poudriere_config` | see below |
 | `poudriere_config` | dict of config that overrides `poudriere_config_default` | `{}` |
+| `poudriere_ports` | see below | `{}` |
+| `poudriere_jails` | see below | `{}` |
+| `poudriere_hooks` | see below | `{}` |
 
 ## `poudriere_config_default`
 
@@ -28,6 +31,24 @@ poudriere_config_default:
   USE_TMPFS: "yes"
   DISTFILES_CACHE: /usr/ports/distfiles
 ```
+## `poudriere_ports`
+
+| Key | Description | Mandatory |
+|-----|-------------|-----------|
+| `method` | method to use to create the ports tree | no |
+| `branch` | branch to checkout | no |
+| `extra_flags` | additional flags to `poudriere(8)` when creating ports tree | no |
+
+## `poudriere_jails`
+
+| Key | Description | Mandatory |
+|-----|-------------|-----------|
+| `method` | method to use to create the jail | yes |
+| `version` | version of FreeBSD to use in the jail | yes |
+| `extra_flags` | additional flags to `poudriere(8)` when creating the jail | no |
+
+## `poudriere_hooks`
+
 
 # Dependencies
 
