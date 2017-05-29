@@ -131,7 +131,7 @@
   with_dict: "{{ poudriere_ports }}"
 
 - name: Remove jail
-  command: "poudriere jails -d {{ item.key }}"
+  command: "poudriere jails -d -j {{ item.key }}"
   args:
     removes: "{{ poudriere_config_merged.BASEFS }}/jails/{{ item.key }}"
   when:
