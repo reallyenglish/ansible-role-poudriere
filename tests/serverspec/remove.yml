@@ -25,5 +25,5 @@
         branch: 20170222
         state: absent
     poudriere_jails:
-      10_3:
+      "10_3":
         state: absent
