@@ -66,18 +66,20 @@ None
     poudriere_config:
       FREEBSD_HOST: ftp://ftp.jp.freebsd.org
       NO_ZFS: "yes"
-      GIT_URL: "https://github.com/reallyenglish/freebsd-ports.git"
+      GIT_URL: "https://github.com/reallyenglish/freebsd-ports-mini.git"
       CHECK_CHANGED_OPTIONS: verbose
       NOLINUX: "yes"
     poudriere_enable_sudo:
     poudriere_ports:
-      10_3_re:
+      mini:
         method: git
-        branch: 10_3_re
+        branch: 20170222
+        state: present
     poudriere_jails:
       "10_3":
         method: http
         version: 10.3-RELEASE
+        state: present
     poudriere_hooks:
       jail: |
         #!/bin/sh
