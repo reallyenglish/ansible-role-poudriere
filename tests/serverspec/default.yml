@@ -13,10 +13,12 @@
       mini:
         method: git
         branch: 20170222
+        state: present
     poudriere_jails:
       "10_3":
         method: http
         version: 10.3-RELEASE
+        state: present
     poudriere_hooks:
       jail: |
         #!/bin/sh

@@ -14,10 +14,10 @@ provisioner:
   ansible_verbose: true
   ansible_extra_flags: <%= ENV['ANSIBLE_EXTRA_FLAGS'] %>
   http_proxy: <%= ENV['ANSIBLE_PROXY'] %>
+  idempotency_test: true
   additional_copy_path:
     - extra_modules
     - filter_plugins
-    - extra_roles
   ansible_vault_password_file: <%= File.expand_path(ENV['ANSIBLE_VAULT_PASSWORD_FILE'] || '') %>
 
 platforms:
@@ -40,3 +40,12 @@ suites:
     verifier:
       name: shell
       command: rspec -c -f d -I tests/serverspec tests/serverspec/default_spec.rb
+
+  - name: remove
+    provisioner:
+      name: ansible_playbook
+      playbook: tests/serverspec/remove.yml
+      idempotency_test: false
+    verifier:
+      name: shell
+      command: rspec -c -f d -I tests/serverspec tests/serverspec/remove_spec.rb

@@ -38,6 +38,7 @@ poudriere_config_default:
 | `method` | method to use to create the ports tree | no |
 | `branch` | branch to checkout | no |
 | `extra_flags` | additional flags to `poudriere(8)` when creating ports tree | no |
+| `state` | state of the ports, either `present` or `absent` | yes |
 
 ## `poudriere_jails`
 
@@ -46,6 +47,7 @@ poudriere_config_default:
 | `method` | method to use to create the jail | yes |
 | `version` | version of FreeBSD to use in the jail | yes |
 | `extra_flags` | additional flags to `poudriere(8)` when creating the jail | no |
+| `state` | state of the jail, either `present` or `absent` | yes |
 
 ## `poudriere_hooks`
 
@@ -64,18 +66,20 @@ None
     poudriere_config:
       FREEBSD_HOST: ftp://ftp.jp.freebsd.org
       NO_ZFS: "yes"
-      GIT_URL: "https://github.com/reallyenglish/freebsd-ports.git"
+      GIT_URL: "https://github.com/reallyenglish/freebsd-ports-mini.git"
       CHECK_CHANGED_OPTIONS: verbose
       NOLINUX: "yes"
     poudriere_enable_sudo:
     poudriere_ports:
-      10_3_re:
+      mini:
         method: git
-        branch: 10_3_re
+        branch: 20170222
+        state: present
     poudriere_jails:
       "10_3":
         method: http
         version: 10.3-RELEASE
+        state: present
     poudriere_hooks:
       jail: |
         #!/bin/sh

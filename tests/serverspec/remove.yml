@@ -1,0 +1,29 @@
+- hosts: localhost
+  pre_tasks:
+    - shell: (echo GIT_URL=https://github.com/reallyenglish/freebsd-ports-mini.git; echo BASEFS=/usr/local/poudriere; echo DISTFILES_CACHE=/usr/ports/distfiles) | tee -a /usr/local/etc/poudriere.conf
+    - pkgng:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - poudriere
+        - git
+    - command: poudriere ports -c -p mini -m git -B 20170222
+    - command: poudriere jails -c -j 10_3 -m http -v 10.3-RELEASE
+  roles:
+    - ansible-role-poudriere
+  vars:
+    poudriere_config:
+      FREEBSD_HOST: ftp://ftp.jp.freebsd.org
+      NO_ZFS: "yes"
+      GIT_URL: "https://github.com/reallyenglish/freebsd-ports-mini.git"
+      CHECK_CHANGED_OPTIONS: verbose
+      NOLINUX: "yes"
+    poudriere_enable_sudo:
+    poudriere_ports:
+      mini:
+        method: git
+        branch: 20170222
+        state: absent
+    poudriere_jails:
+      "10_3":
+        state: absent

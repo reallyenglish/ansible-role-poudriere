@@ -63,14 +63,78 @@
     path: "{{ poudriere_config_merged.BASEFS }}"
     state: directory
 
+- name: Get a list of ports tree
+  shell: "poudriere ports -lq | awk '{ print $1 }'"
+  register: register_ports_list
+  changed_when: false
+  always_run: yes
+
+- name: Assert `state` exists in all ports in poudriere_ports
+  assert:
+    that:
+      - '"state" in item.value'
+    msg: "`state` must exist in all ports in poudriere_ports"
+  with_dict: "{{ poudriere_ports }}"
+
+- name: Assert `state` is either `present` or `absent` in poudriere_ports
+  assert:
+    that:
+      - 'item.value.state == "present" or item.value.state == "absent"'
+    msg: "`state` must be either `present` or `absent` in poudriere_ports"
+  with_dict: "{{ poudriere_ports }}"
+
+- name: Get a list of jails
+  shell: "poudriere jails -lq | awk '{ print $1 }'"
+  register: register_jails_list
+  changed_when: false
+  always_run: yes
+
+- name: Assert `state` exists in all jails in poudriere_jails
+  assert:
+    that:
+      - '"state" in item.value'
+    msg: "`state` must exist in all jails poudriere_jails"
+  with_dict: "{{ poudriere_ports }}"
+
+- name: Assert `state` is either `present` or `absent` in poudriere_jails
+  assert:
+    that:
+      - 'item.value.state == "present" or item.value.state == "absent"'
+    msg: "`state` must be either `presnet` or `absent` in poudriere_jails"
+  with_dict: "{{ poudriere_ports }}"
+
 - name: Create ports tree
   command: "poudriere ports -c -p {{ item.key }}{% if 'method' in item.value %} -m {{ item.value.method }}{% endif %} {% if 'branch' in item.value %} -B {{ item.value.branch }} {% endif %} {% if 'extra_flags' in item.value %}{{ item.value.extra_flags }}{% endif %}"
   args:
     creates: "{{ poudriere_config_merged.BASEFS }}/ports/{{ item.key }}"
+  when:
+    - 'item.value.state == "present"'
+    - not item.key in register_ports_list.stdout_lines
   with_dict: "{{ poudriere_ports }}"
 
 - name: Create jails 
   command: "poudriere jail -c -j {{ item.key }} -m {{ item.value.method }} -v {{ item.value.version }} {% if 'extra_flags' in item.value %}{{ item.value.extra_flags }}{% endif %}"
   args:
     creates: "{{ poudriere_config_merged.BASEFS }}/jails/{{ item.key }}"
+  when:
+    - 'item.value.state == "present"'
+    - not item.key in register_jails_list.stdout_lines
+  with_dict: "{{ poudriere_jails }}"
+
+- name: Remove ports tree
+  command: "poudriere ports -d -p {{ item.key }}"
+  args:
+    removes: "{{ poudriere_config_merged.BASEFS }}/ports/{{ item.key }}"
+  when:
+    - 'item.value.state == "absent"'
+    - item.key in register_ports_list.stdout_lines
+  with_dict: "{{ poudriere_ports }}"
+
+- name: Remove jail
+  command: "poudriere jails -d -j {{ item.key }}"
+  args:
+    removes: "{{ poudriere_config_merged.BASEFS }}/jails/{{ item.key }}"
+  when:
+    - 'item.value.state == "absent"'
+    - item.key in register_jails_list.stdout_lines
   with_dict: "{{ poudriere_jails }}"
