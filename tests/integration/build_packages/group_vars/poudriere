@@ -9,7 +9,6 @@ poudriere_config:
   SVN_HOST: svn.FreeBSD.org
   CHECK_CHANGED_OPTIONS: verbose
   NOLINUX: "yes"
-poudriere_enable_sudo:
 poudriere_ports:
   mini:
     method: git
