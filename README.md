@@ -69,7 +69,6 @@ None
       GIT_URL: "https://github.com/reallyenglish/freebsd-ports-mini.git"
       CHECK_CHANGED_OPTIONS: verbose
       NOLINUX: "yes"
-    poudriere_enable_sudo:
     poudriere_ports:
       mini:
         method: git
