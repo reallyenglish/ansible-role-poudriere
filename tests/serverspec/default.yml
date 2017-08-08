@@ -16,7 +16,7 @@
         state: present
       vagrant:
         state: present
-        extra_flags: -f none
+        extra_flags: -f none -F
         path: /home/vagrant/freebsd-ports
     poudriere_jails:
       "10_3":
