@@ -24,11 +24,6 @@
     src: poudriere.conf.j2
     dest: "{{ poudriere_conf }}"
 
-- name: Install git
-  pkgng:
-    name: git
-    state: present
-
 - name: Create hooks
   template:
     src: hook.sh.j2
