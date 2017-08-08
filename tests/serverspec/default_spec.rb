@@ -52,6 +52,7 @@ describe command("poudriere ports -l") do
   quoted = Regexp.escape("#{basefs}/ports/mini")
   its(:exit_status) { should eq 0 }
   its(:stdout) { should match(/^mini\s+git\s+(?:\d+-\d+-\d+\s+\d+:\d+:\d+\s+)?#{quoted}/) }
+  its(:stdout) { should match(/^vagrant\s+-\s+#{Regexp.escape("/usr/local/poudriere/ports/vagrant")}$/) }
   its(:stderr) { should match(/^$/) }
 end
 

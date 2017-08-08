@@ -99,7 +99,7 @@
   with_dict: "{{ poudriere_ports }}"
 
 - name: Create ports tree
-  command: "poudriere ports -c -p {{ item.key }}{% if 'method' in item.value %} -m {{ item.value.method }}{% endif %} {% if 'branch' in item.value %} -B {{ item.value.branch }} {% endif %} {% if 'extra_flags' in item.value %}{{ item.value.extra_flags }}{% endif %}"
+  shell: "poudriere ports -c -p {{ item.key }}{% if 'method' in item.value %} -m {{ item.value.method }}{% endif %} {% if 'branch' in item.value %} -B {{ item.value.branch }}{% endif %} {% if 'path' in item.value %}-F '{{ item.value.path }}'{% endif %} {% if 'extra_flags' in item.value %}{{ item.value.extra_flags }}{% endif %}"
   args:
     creates: "{{ poudriere_config_merged.BASEFS }}/ports/{{ item.key }}"
   when:
