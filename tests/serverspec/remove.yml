@@ -10,6 +10,7 @@
     - command: poudriere ports -c -p mini -m git -B 20170222
     - command: poudriere jails -c -j 10_3 -m http -v 10.3-RELEASE
   roles:
+    - name: reallyenglish.git
     - ansible-role-poudriere
   vars:
     poudriere_config:

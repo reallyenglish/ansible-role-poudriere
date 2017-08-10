@@ -1,5 +1,6 @@
 - hosts: localhost
   roles:
+    - name: reallyenglish.git
     - ansible-role-poudriere
   vars:
     poudriere_config:
@@ -13,6 +14,10 @@
         method: git
         branch: 20170222
         state: present
+      vagrant:
+        state: present
+        extra_flags: -f none -F
+        path: /home/vagrant/freebsd-ports
     poudriere_jails:
       "10_3":
         method: http
