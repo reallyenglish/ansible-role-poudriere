@@ -8,6 +8,7 @@ galaxy_info:
   platforms:
   - name: FreeBSD
     versions:
+    - 11.1
     - 10.3
 #  - name: OpenBSD
 #    versions:
@@ -22,5 +23,4 @@ galaxy_info:
   galaxy_tags:
     - ports
     - poudriere
-#dependencies:
-#  - { role: username.common, some_parameter: 3 }
+dependencies:
