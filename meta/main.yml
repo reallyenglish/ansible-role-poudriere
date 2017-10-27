@@ -8,6 +8,9 @@ galaxy_info:
   platforms:
   - name: FreeBSD
     versions:
+# XXX 11.1 is not supported by galaxy, see
+# https://github.com/ansible/galaxy-issues/issues/296
+#   - 11.1
     - 10.3
 #  - name: OpenBSD
 #    versions:
@@ -22,5 +25,4 @@ galaxy_info:
   galaxy_tags:
     - ports
     - poudriere
-#dependencies:
-#  - { role: username.common, some_parameter: 3 }
+dependencies:

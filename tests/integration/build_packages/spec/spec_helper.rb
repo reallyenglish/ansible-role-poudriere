@@ -8,6 +8,11 @@ Infrataster::Server.define(
   "192.168.21.100",
   vagrant: true
 )
+Infrataster::Server.define(
+  :server2,
+  "192.168.21.101",
+  vagrant: true
+)
 
 def json_body_as_hash
   json_str_to_hash(response.body)
