@@ -8,6 +8,8 @@ jail_hook_files = %w(jail.sh builder.sh)
 default_owner = "root"
 default_group = "wheel"
 distfiles = "/usr/ports/distfiles"
+key_dir = "/usr/local/etc/poudriere/keys"
+key_file = "#{key_dir}/my.key"
 
 describe package(package) do
   it { should be_installed }
@@ -27,6 +29,24 @@ describe file(distfiles) do
   it { should be_mode 755 }
 end
 
+describe file(key_dir) do
+  it { should exist }
+  it { should be_directory }
+  it { should be_owned_by default_owner }
+  it { should be_grouped_into default_group }
+  it { should be_mode 755 }
+end
+
+describe file(key_file) do
+  it { should exist }
+  it { should be_file }
+  it { should be_owned_by default_owner }
+  it { should be_grouped_into default_group }
+  it { should be_mode 600 }
+  its(:content) { should match(/^-----BEGIN RSA PRIVATE KEY-----$/) }
+  its(:content) { should match(/^#{Regexp.escape("MIIEogIBAAKCAQEAwoMg0XK2SdEaz8b8O6rYf+lzDx+ElBXr2ARmFCG+SzKmHf8+")}/) }
+end
+
 describe file(config) do
   it { should be_file }
   it { should be_owned_by default_owner }
@@ -35,6 +55,7 @@ describe file(config) do
   its(:content) { should match(/NO_ZFS="yes"/) }
   its(:content) { should match(Regexp.escape('GIT_URL="https://github.com/reallyenglish/freebsd-ports-mini.git"')) }
   its(:content) { should match(Regexp.escape('FREEBSD_HOST="ftp://ftp.jp.freebsd.org"')) }
+  its(:content) { should match(Regexp.escape('PKG_REPO_SIGNING_KEY="/usr/local/etc/poudriere/keys/my.key"')) }
 end
 
 jail_hook_files.each do |f|

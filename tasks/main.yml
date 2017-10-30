@@ -24,6 +24,30 @@
     src: poudriere.conf.j2
     dest: "{{ poudriere_conf }}"
 
+- name: Assert poudriere_pkg_repo_signing_key is defined when PKG_REPO_SIGNING_KEY is defined
+  assert:
+    that:
+      - poudriere_pkg_repo_signing_key is defined
+      - poudriere_pkg_repo_signing_key | length > 0
+  when:
+    - "'PKG_REPO_SIGNING_KEY' in poudriere_config_merged"
+
+- name: Create a directory for PKG_REPO_SIGNING_KEY if specified
+  file:
+    dest: "{{ poudriere_config_merged['PKG_REPO_SIGNING_KEY'] | dirname }}"
+    state: directory
+  when:
+      - "'PKG_REPO_SIGNING_KEY' in poudriere_config_merged"
+
+- name: Create PKG_REPO_SIGNING_KEY if specified
+  template:
+    src: key.j2
+    mode: 0600
+    dest: "{{ poudriere_config_merged['PKG_REPO_SIGNING_KEY'] }}"
+    validate: openssl rsa -check -noout -in %s
+  when:
+    - "'PKG_REPO_SIGNING_KEY' in poudriere_config_merged"
+
 - name: Create hooks
   template:
     src: hook.sh.j2
