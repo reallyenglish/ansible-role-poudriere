@@ -14,3 +14,4 @@ poudriere_config: {}
 poudriere_ports: {}
 poudriere_jails: {}
 poudriere_hooks: {}
+poudriere_pkg_repo_signing_key: ""
