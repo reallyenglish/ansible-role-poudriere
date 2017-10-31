@@ -1,3 +1,7 @@
+## Release 1.3.0
+
+* 91f7092 [feature] support PKG_REPO_SIGNING_KEY (#21)
+
 ## Release 1.2.0
 
 * dc309e6 [feature] support FreeBSD 11.1 (#18)
