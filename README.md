@@ -27,7 +27,7 @@ details.
 
 ```yaml
 poudriere_config_default:
-  FREEBSD_HOST: https://ftp.freebsd.org
+  FREEBSD_HOST: http://ftp.freebsd.org
   SVN_HOST: svn.FreeBSD.org
   BASEFS: /usr/local/poudriere
   RESOLV_CONF: /etc/resolv.conf
