@@ -79,11 +79,11 @@ describe file(config) do
   it { should be_owned_by default_owner }
   it { should be_grouped_into default_group }
   it { should be_mode 644 }
-  its(:content) { should match(/NO_ZFS="yes"/) }
-  its(:content) { should match(Regexp.escape('GIT_URL="https://github.com/reallyenglish/freebsd-ports-mini.git"')) }
-  its(:content) { should match(Regexp.escape('FREEBSD_HOST="http://ftp.freebsd.org"')) }
-  its(:content) { should match(Regexp.escape('PKG_REPO_SIGNING_KEY="/usr/local/etc/poudriere/keys/my.key"')) }
-  its(:content) { should match(Regexp.escape("CCACHE_DIR=#{ccache_dir}")) }
+  its(:content) { should match(/^NO_ZFS="yes"$/) }
+  its(:content) { should match(/^GIT_URL="#{Regexp.escape("https://github.com/reallyenglish/freebsd-ports-mini.git")}"$/) }
+  its(:content) { should match(/^FREEBSD_HOST="#{Regexp.escape("http://ftp.freebsd.org")}"$/) }
+  its(:content) { should match(/^PKG_REPO_SIGNING_KEY="#{Regexp.escape("/usr/local/etc/poudriere/keys/my.key")}"$/) }
+  its(:content) { should match(/^CCACHE_DIR="#{Regexp.escape(ccache_dir)}"$/) }
 end
 
 jail_hook_files.each do |f|
