@@ -4,6 +4,7 @@ require "serverspec"
 package = "poudriere"
 config  = "/usr/local/etc/poudriere.conf"
 basefs = "/usr/local/poudriere"
+conf_d = "/usr/local/etc/poudriere.d"
 default_owner = "root"
 default_group = "wheel"
 distfiles = "/usr/ports/distfiles"
@@ -33,7 +34,7 @@ describe file(config) do
   it { should be_mode 644 }
   its(:content) { should match(/NO_ZFS="yes"/) }
   its(:content) { should match(Regexp.escape('GIT_URL="https://github.com/reallyenglish/freebsd-ports-mini.git"')) }
-  its(:content) { should match(Regexp.escape('FREEBSD_HOST="ftp://ftp.jp.freebsd.org"')) }
+  its(:content) { should match(Regexp.escape('FREEBSD_HOST="http://ftp.freebsd.org"')) }
 end
 
 describe command("poudriere ports -l") do
@@ -49,5 +50,9 @@ describe command("poudriere jails -l") do
 end
 
 describe file("#{basefs}/ports/mini") do
+  it { should_not exist }
+end
+
+describe file("#{conf_d}/make.conf") do
   it { should_not exist }
 end

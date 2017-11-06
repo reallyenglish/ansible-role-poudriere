@@ -11,11 +11,13 @@ None
 | Variable | Description | Default |
 |----------|-------------|---------|
 | `poudriere_conf` | path to `poudriere.conf` | `/usr/local/etc/poudriere.conf` |
+| `poudriere_conf_d` | path to `poudriere.d` directory | `/usr/local/etc/poudriere.d` |
 | `poudriere_config_default` | defaults for `poudriere_config` | see below |
 | `poudriere_config` | dict of config that overrides `poudriere_config_default` | `{}` |
 | `poudriere_ports` | see below | `{}` |
 | `poudriere_jails` | see below | `{}` |
 | `poudriere_hooks` | see below | `{}` |
+| `poudriere_make_conf_files` | see below | `[]` |
 | `poudriere_pkg_repo_signing_key` | content of key with which `poudriere` sign packages | `""` |
 
 ## `poudriere_config_default`
@@ -25,7 +27,7 @@ details.
 
 ```yaml
 poudriere_config_default:
-  FREEBSD_HOST: ftp://ftp.freebsd.org
+  FREEBSD_HOST: https://ftp.freebsd.org
   SVN_HOST: svn.FreeBSD.org
   BASEFS: /usr/local/poudriere
   RESOLV_CONF: /etc/resolv.conf
@@ -62,6 +64,14 @@ poudriere_config_default:
 When `poudriere_pkg_repo_signing_key` is defined,
 `poudriere_config['PKG_REPO_SIGNING_KEY']` must be set to path to the key file.
 
+## `poudriere_make_conf_files`
+
+| Key | Description | Mandatory? |
+|-----|-------------|------------|
+| `name` | file name of the `make.conf(5)` | yes | 
+| `state` | create the file if `present`, remove it if `absent` | yes |
+| `content` | the content of the `make.conf(5)` | yes if `state` is `present` |
+
 # Dependencies
 
 None
@@ -74,8 +84,14 @@ None
     - name: reallyenglish.git
     - ansible-role-poudriere
   vars:
+    poudriere_make_conf_files:
+      - name: make.conf
+        state: present
+        content: |
+          LICENSES_ACCEPTED=MSPAT OSI
+          MAKE_JOB_NUMBERS=3
     poudriere_config:
-      FREEBSD_HOST: ftp://ftp.jp.freebsd.org
+      FREEBSD_HOST: http://ftp.freebsd.org
       NO_ZFS: "yes"
       GIT_URL: "https://github.com/reallyenglish/freebsd-ports-mini.git"
       CHECK_CHANGED_OPTIONS: verbose

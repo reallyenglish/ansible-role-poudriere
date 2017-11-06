@@ -3,6 +3,7 @@ require "serverspec"
 
 package = "poudriere"
 config  = "/usr/local/etc/poudriere.conf"
+conf_d = "/usr/local/etc/poudriere.d"
 basefs = "/usr/local/poudriere"
 jail_hook_files = %w(jail.sh builder.sh)
 default_owner = "root"
@@ -13,6 +14,23 @@ key_file = "#{key_dir}/my.key"
 
 describe package(package) do
   it { should be_installed }
+end
+
+describe file(conf_d) do
+  it { should be_directory }
+  it { should be_owned_by default_owner }
+  it { should be_grouped_into default_group }
+  it { should be_mode 755 }
+end
+
+describe file("#{conf_d}/make.conf") do
+  it { should exist }
+  it { should be_file }
+  it { should be_owned_by default_owner }
+  it { should be_grouped_into default_group }
+  it { should be_mode 644 }
+  its(:content) { should match(/^LICENSES_ACCEPTED=MSPAT OSI$/) }
+  its(:content) { should match(/^MAKE_JOB_NUMBERS=3$/) }
 end
 
 describe file(basefs) do
@@ -54,7 +72,7 @@ describe file(config) do
   it { should be_mode 644 }
   its(:content) { should match(/NO_ZFS="yes"/) }
   its(:content) { should match(Regexp.escape('GIT_URL="https://github.com/reallyenglish/freebsd-ports-mini.git"')) }
-  its(:content) { should match(Regexp.escape('FREEBSD_HOST="ftp://ftp.jp.freebsd.org"')) }
+  its(:content) { should match(Regexp.escape('FREEBSD_HOST="http://ftp.freebsd.org"')) }
   its(:content) { should match(Regexp.escape('PKG_REPO_SIGNING_KEY="/usr/local/etc/poudriere/keys/my.key"')) }
 end
 

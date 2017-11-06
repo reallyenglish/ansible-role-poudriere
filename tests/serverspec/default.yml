@@ -3,8 +3,14 @@
     - name: reallyenglish.git
     - ansible-role-poudriere
   vars:
+    poudriere_make_conf_files:
+      - name: make.conf
+        state: present
+        content: |
+          LICENSES_ACCEPTED=MSPAT OSI
+          MAKE_JOB_NUMBERS=3
     poudriere_config:
-      FREEBSD_HOST: ftp://ftp.jp.freebsd.org
+      FREEBSD_HOST: http://ftp.freebsd.org
       NO_ZFS: "yes"
       GIT_URL: "https://github.com/reallyenglish/freebsd-ports-mini.git"
       CHECK_CHANGED_OPTIONS: verbose
