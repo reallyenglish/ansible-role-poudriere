@@ -66,6 +66,8 @@ When `poudriere_pkg_repo_signing_key` is defined,
 
 ## `poudriere_make_conf_files`
 
+This variable is a list of dict. Keys in items are described below.
+
 | Key | Description | Mandatory? |
 |-----|-------------|------------|
 | `name` | file name of the `make.conf(5)` | yes | 
