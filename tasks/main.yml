@@ -14,6 +14,15 @@
       - poudriere_config_default.DISTFILES_CACHE | length > 0
     msg: "poudriere_config_default must have valid BASEFS and DISTFILES_CACHE"
 
+- name: Assert items in poudriere_make_conf_files have `name` as key
+  assert:
+    msg: items in poudriere_make_conf_files must have `name` as key
+    that:
+      - "'name' in item"
+      - item.name  is defined
+      - item.name | length > 0
+  with_items: "{{ poudriere_make_conf_files }}"
+
 - name: Assert items in poudriere_make_conf_files have either present or absent in key `state`
   assert:
     msg: item in poudriere_make_conf_files must have `state` as key and its value must be either `present` or `absent`
@@ -21,6 +30,15 @@
       - "'state' in item"
       - "item.state == 'present' or item.state == 'absent'"
   with_items: "{{ poudriere_make_conf_files }}"
+
+- name: Assert items with state `present` have `content` key
+  assert:
+    that:
+      - "'content' in item"
+      - item.content is defined
+  with_items: "{{ poudriere_make_conf_files }}"
+  when:
+    - "item.state == 'present'"
 
 - set_fact:
     poudriere_config_merged: "{{ poudriere_config_default | combine(poudriere_config, recursive = True) }}"
