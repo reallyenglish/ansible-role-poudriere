@@ -16,6 +16,7 @@
       CHECK_CHANGED_OPTIONS: verbose
       NOLINUX: "yes"
       PKG_REPO_SIGNING_KEY: /usr/local/etc/poudriere/keys/my.key
+      CCACHE_DIR: /var/cache/ccache
     # openssl genrsa -out my.key 2048
     # openssl rsa -in my.key -out my.pub -pubout
     poudriere_pkg_repo_signing_key: |
