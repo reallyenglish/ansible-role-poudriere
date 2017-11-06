@@ -2,9 +2,10 @@
 # devs said that "it's because you should not use it".
 # https://github.com/freebsd/poudriere/issues/333
 # poudriere_service: poudriered
-poudriere_conf: "/usr/local/etc/poudriere.conf"
+poudriere_conf: /usr/local/etc/poudriere.conf
+poudriere_conf_d: /usr/local/etc/poudriere.d
 poudriere_config_default:
-  FREEBSD_HOST: ftp://ftp.freebsd.org
+  FREEBSD_HOST: http://ftp.freebsd.org
   SVN_HOST: svn.FreeBSD.org
   BASEFS: /usr/local/poudriere
   RESOLV_CONF: /etc/resolv.conf
@@ -14,4 +15,5 @@ poudriere_config: {}
 poudriere_ports: {}
 poudriere_jails: {}
 poudriere_hooks: {}
+poudriere_make_conf_files: []
 poudriere_pkg_repo_signing_key: ""

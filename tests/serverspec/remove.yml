@@ -1,6 +1,13 @@
 - hosts: localhost
   pre_tasks:
     - shell: (echo GIT_URL=https://github.com/reallyenglish/freebsd-ports-mini.git; echo BASEFS=/usr/local/poudriere; echo DISTFILES_CACHE=/usr/ports/distfiles) | tee -a /usr/local/etc/poudriere.conf
+    - file:
+        dest: "{{ poudriere_conf_d }}"
+        mode: 0755
+        state: directory
+    - copy:
+        dest: "{{ poudriere_conf_d  }}/make.conf"
+        content: "FOO=bar"
     - pkgng:
         name: "{{ item }}"
         state: present
@@ -14,7 +21,7 @@
     - ansible-role-poudriere
   vars:
     poudriere_config:
-      FREEBSD_HOST: ftp://ftp.jp.freebsd.org
+      FREEBSD_HOST: http://ftp.freebsd.org
       NO_ZFS: "yes"
       GIT_URL: "https://github.com/reallyenglish/freebsd-ports-mini.git"
       CHECK_CHANGED_OPTIONS: verbose
@@ -26,4 +33,7 @@
         state: absent
     poudriere_jails:
       "10_3":
+        state: absent
+    poudriere_make_conf_files:
+      - name: make.conf
         state: absent
