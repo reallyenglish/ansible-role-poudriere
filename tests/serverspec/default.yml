@@ -3,6 +3,7 @@
     - name: reallyenglish.git
     - ansible-role-poudriere
   vars:
+    poudriere_package: ports-mgmt/poudriere-devel
     poudriere_make_conf_files:
       - name: make.conf
         state: present

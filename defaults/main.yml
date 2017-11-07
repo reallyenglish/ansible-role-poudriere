@@ -2,6 +2,7 @@
 # devs said that "it's because you should not use it".
 # https://github.com/freebsd/poudriere/issues/333
 # poudriere_service: poudriered
+poudriere_package: ports-mgmt/poudriere
 poudriere_conf: /usr/local/etc/poudriere.conf
 poudriere_conf_d: /usr/local/etc/poudriere.d
 poudriere_config_default:
