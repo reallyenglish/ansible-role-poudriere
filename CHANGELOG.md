@@ -1,3 +1,8 @@
+## Release 1.4.0
+
+* c5d2a7e [feature] Support CCACHE_DIR (#24)
+* 98ea18d [feature] support make.conf (#23)
+
 ## Release 1.3.0
 
 * 91f7092 [feature] support PKG_REPO_SIGNING_KEY (#21)
