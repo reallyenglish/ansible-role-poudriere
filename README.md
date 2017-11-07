@@ -10,6 +10,7 @@ None
 
 | Variable | Description | Default |
 |----------|-------------|---------|
+| `poudriere_package` | package name of `poudriere` | `ports-mgmt/poudriere` |
 | `poudriere_conf` | path to `poudriere.conf` | `/usr/local/etc/poudriere.conf` |
 | `poudriere_conf_d` | path to `poudriere.d` directory | `/usr/local/etc/poudriere.d` |
 | `poudriere_config_default` | defaults for `poudriere_config` | see below |
@@ -86,6 +87,7 @@ None
     - name: reallyenglish.git
     - ansible-role-poudriere
   vars:
+    poudriere_package: ports-mgmt/poudriere-devel
     poudriere_make_conf_files:
       - name: make.conf
         state: present
@@ -99,6 +101,7 @@ None
       CHECK_CHANGED_OPTIONS: verbose
       NOLINUX: "yes"
       PKG_REPO_SIGNING_KEY: /usr/local/etc/poudriere/keys/my.key
+      CCACHE_DIR: /var/cache/ccache
     # openssl genrsa -out my.key 2048
     # openssl rsa -in my.key -out my.pub -pubout
     poudriere_pkg_repo_signing_key: |
