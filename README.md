@@ -27,7 +27,7 @@ details.
 
 ```yaml
 poudriere_config_default:
-  FREEBSD_HOST: https://ftp.freebsd.org
+  FREEBSD_HOST: http://ftp.freebsd.org
   SVN_HOST: svn.FreeBSD.org
   BASEFS: /usr/local/poudriere
   RESOLV_CONF: /etc/resolv.conf
@@ -36,7 +36,7 @@ poudriere_config_default:
 ```
 ## `poudriere_ports`
 
-| Key | Description | Mandatory |
+| Key | Description | Mandatory? |
 |-----|-------------|-----------|
 | `method` | method to use to create the ports tree | no |
 | `branch` | branch to checkout | no |
@@ -46,7 +46,7 @@ poudriere_config_default:
 
 ## `poudriere_jails`
 
-| Key | Description | Mandatory |
+| Key | Description | Mandatory? |
 |-----|-------------|-----------|
 | `method` | method to use to create the jail | yes |
 | `version` | version of FreeBSD to use in the jail | yes |

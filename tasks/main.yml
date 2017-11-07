@@ -96,6 +96,13 @@
   when:
     - "'PKG_REPO_SIGNING_KEY' in poudriere_config_merged"
 
+- name: Create CCACHE_DIR if specified
+  file:
+    dest: "{{ poudriere_config_merged['CCACHE_DIR'] }}"
+    state: directory
+  when:
+    - "'CCACHE_DIR' in poudriere_config_merged"
+
 - name: Create hooks
   template:
     src: hook.sh.j2
