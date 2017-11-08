@@ -1,7 +1,7 @@
 require "spec_helper"
 require "serverspec"
 
-package = "poudriere"
+package = "poudriere-devel"
 config  = "/usr/local/etc/poudriere.conf"
 conf_d = "/usr/local/etc/poudriere.d"
 basefs = "/usr/local/poudriere"

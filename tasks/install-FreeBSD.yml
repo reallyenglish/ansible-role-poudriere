@@ -2,5 +2,5 @@
 
 - name: Install poudriere
   pkgng:
-    name: poudriere
+    name: "{{ poudriere_package }}"
     state: present
