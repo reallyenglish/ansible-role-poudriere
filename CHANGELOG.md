@@ -1,3 +1,7 @@
+## Release 1.5.0
+
+* 8c93b33 [feature] allow other package name than poudriere (#26)
+
 ## Release 1.4.0
 
 * c5d2a7e [feature] Support CCACHE_DIR (#24)
