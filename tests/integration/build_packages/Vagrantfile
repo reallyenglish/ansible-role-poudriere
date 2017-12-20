@@ -46,11 +46,11 @@ Vagrant.configure("2") do |config|
     v.memory = 256
     v.cpus = 1
   end
-  config.vm.box = "trombik/ansible-freebsd-10.3-amd64"
-  boxes = %w(
-    trombik/ansible-freebsd-10.3-amd64
-    trombik/ansible-freebsd-11.1-amd64
-  )
+  config.vm.box = "mitsuruy/ansible-freebsd-10.3-amd64"
+  boxes = %w[
+    mitsuruy/ansible-freebsd-10.3-amd64
+    mitsuruy/ansible-freebsd-11.1-amd64
+  ]
 
   boxes.each_with_index do |_box, i|
     config.vm.define "server#{i + 1}" do |c|

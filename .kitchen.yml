@@ -23,7 +23,7 @@ provisioner:
 platforms:
   - name: freebsd-11.1-amd64
     driver:
-      box: trombik/ansible-freebsd-11.1-amd64
+      box: mitsuruy/ansible-freebsd-11.1-amd64
       box_check_update: false
     driver_config:
       ssh:
@@ -34,7 +34,7 @@ platforms:
 
   - name: freebsd-10.3-amd64
     driver:
-      box: trombik/ansible-freebsd-10.3-amd64
+      box: mitsuruy/ansible-freebsd-10.3-amd64
       box_check_update: false
     driver_config:
       ssh:
